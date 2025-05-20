@@ -4,9 +4,8 @@ import { useLanguage } from "../../LanguageContext";
 import { Link } from "react-router-dom";
 
 const Signin = () => {
-  const { language } = useLanguage(); // ✅ Access current language
+  const { language } = useLanguage();
 
-  // ✅ Text translations
   const texts = {
     en: {
       title: "Sign Up",
@@ -41,20 +40,25 @@ const Signin = () => {
   const t = texts[language] || texts.en;
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-blue-50">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-blue-900 text-center mb-6">
+    <div
+      className="flex items-center justify-center min-h-screen bg-cover bg-center"
+      style={{
+        backgroundImage: 'url("/sciencebg.jpg")',
+      }}
+    >
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md bg-opacity-95">
+        <h2 className="text-2xl font-bold text-red-600 text-center mb-6">
           {t.title}
         </h2>
 
         <form>
           {/* Full Name */}
           <div className="mb-4">
-            <label htmlFor="fullname" className="block text-blue-700 mb-1">
+            <label htmlFor="fullname" className="block text-black mb-1">
               {t.fullName}
             </label>
-            <div className="flex items-center border border-blue-200 rounded px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600">
-              <FaSignature className="text-blue-600 mr-2" />
+            <div className="flex items-center border border-red-200 rounded px-3 py-2 focus-within:ring-2 focus-within:ring-red-600">
+              <FaSignature className="text-black mr-2" />
               <input
                 type="text"
                 id="fullname"
@@ -68,11 +72,11 @@ const Signin = () => {
 
           {/* Username */}
           <div className="mb-4">
-            <label htmlFor="username" className="block text-blue-700 mb-1">
+            <label htmlFor="username" className="block text-black mb-1">
               {t.username}
             </label>
-            <div className="flex items-center border border-blue-200 rounded px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600">
-              <FaUser className="text-blue-600 mr-2" />
+            <div className="flex items-center border border-red-200 rounded px-3 py-2 focus-within:ring-2 focus-within:ring-red-600">
+              <FaUser className="text-black mr-2" />
               <input
                 type="text"
                 id="username"
@@ -86,11 +90,11 @@ const Signin = () => {
 
           {/* Gmail */}
           <div className="mb-4">
-            <label htmlFor="email" className="block text-blue-700 mb-1">
+            <label htmlFor="email" className="block text-black mb-1">
               {t.email}
             </label>
-            <div className="flex items-center border border-blue-200 rounded px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600">
-              <FaEnvelope className="text-blue-600 mr-2" />
+            <div className="flex items-center border border-red-200 rounded px-3 py-2 focus-within:ring-2 focus-within:ring-red-600">
+              <FaEnvelope className="text-black mr-2" />
               <input
                 type="email"
                 id="email"
@@ -104,11 +108,11 @@ const Signin = () => {
 
           {/* Password */}
           <div className="mb-4">
-            <label htmlFor="password" className="block text-blue-700 mb-1">
+            <label htmlFor="password" className="block text-black mb-1">
               {t.password}
             </label>
-            <div className="flex items-center border border-blue-200 rounded px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600">
-              <FaLock className="text-blue-600 mr-2" />
+            <div className="flex items-center border border-red-200 rounded px-3 py-2 focus-within:ring-2 focus-within:ring-red-600">
+              <FaLock className="text-black mr-2" />
               <input
                 type="password"
                 id="password"
@@ -122,14 +126,11 @@ const Signin = () => {
 
           {/* Confirm Password */}
           <div className="mb-6">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-blue-700 mb-1"
-            >
+            <label htmlFor="confirmPassword" className="block text-black mb-1">
               {t.confirmPassword}
             </label>
-            <div className="flex items-center border border-blue-200 rounded px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600">
-              <FaLock className="text-blue-600 mr-2" />
+            <div className="flex items-center border border-red-200 rounded px-3 py-2 focus-within:ring-2 focus-within:ring-red-600">
+              <FaLock className="text-black mr-2" />
               <input
                 type="password"
                 id="confirmPassword"
@@ -143,14 +144,15 @@ const Signin = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition duration-200"
+            className="w-full bg-red-600 hover:bg-red-700 font-bold text-white  py-2 rounded transition duration-200"
           >
             {t.submit}
           </button>
         </form>
+
         <h1 className="mt-6 text-black font-medium text-center">
           Already have an account?{" "}
-          <Link to="/auth/login" className="text-blue-700">
+          <Link to="/auth/login" className="text-red-600 hover:underline">
             Log In
           </Link>
         </h1>

@@ -6,11 +6,19 @@ import Auth_layout from "./Layout/Auth_layout";
 import Login from "./Auth/Components_auth/Login";
 import Signin from "./Auth/Components_auth/Signin";
 import { LanguageProvider } from "./LanguageContext";
+import Main_Layout from "./Layout/Main_Layout";
+import Home from "./Pages/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <Main_Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+    ],
   },
   {
     path: "/auth",

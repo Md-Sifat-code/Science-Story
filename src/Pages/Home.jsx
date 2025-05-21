@@ -6,9 +6,7 @@ import Hero from "../components/Re_useComponents/Hero";
 function Home() {
   return (
     <section>
-      <div>
-        <Navbar/>
-      </div>
+      
       <div>
         <Hero/>
       </div>

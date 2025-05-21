@@ -17,11 +17,11 @@ function Hero() {
       style={{ backgroundImage: "url('/backgr.jpg')" }}
     >
       {/* Absolutely positioned image on the left center */}
-      <div className="absolute left-[-250px] top-1/2 transform -translate-y-1/2">
+      <div className="absolute left-[-140px] md:left-[-250px] top-1/2 transform -translate-y-1/2">
         <img
           src="/ai.png"
           alt="AI Illustration"
-          className=""
+          className="w-64 md:w-full"
         />
       </div>
 

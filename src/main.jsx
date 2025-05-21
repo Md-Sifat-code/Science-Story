@@ -10,6 +10,7 @@ import Main_Layout from "./Layout/Main_Layout";
 import Home from "./Pages/Home";
 import LandingAuth from "./Auth/Components_auth/LandingAuth";
 import Verification from "./Auth/Components_auth/Verification";
+import Learn from "./Pages/Learn";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
         path: "/home",
         element: <Home />,
       },
+      {
+        path : "/home/learn",
+        element : <Learn/>
+      }
     ],
   },
   {

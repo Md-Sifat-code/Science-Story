@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { useLanguage } from "../../LanguageContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signin = () => {
   const { language } = useLanguage();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     username: "",
@@ -54,7 +55,9 @@ const Signin = () => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert(language === "bn" ? "পাসওয়ার্ড মিলছে না!" : "Passwords do not match!");
+      alert(
+        language === "bn" ? "পাসওয়ার্ড মিলছে না!" : "Passwords do not match!"
+      );
       return;
     }
 
@@ -69,16 +72,26 @@ const Signin = () => {
         body: form,
       });
 
-      const data = await res.json();
+      let data;
+      const contentType = res.headers.get("content-type");
+
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        const text = await res.text();
+        data = { message: text };
+      }
 
       if (res.ok) {
-        alert(language === "bn" ? "সাইন আপ সফল!" : "Sign up successful!");
         setFormData({
           username: "",
           email: "",
           password: "",
           confirmPassword: "",
         });
+
+        // ✅ Redirect after successful signup
+        navigate("/auth/verification", { state: { email: formData.email } });
       } else {
         alert(data.message || "Something went wrong.");
       }
@@ -181,7 +194,7 @@ const Signin = () => {
 
           <button
             type="submit"
-            className="w-full bg-[#575B91] font-bold text-white py-2 rounded transition duration-200"
+            className="w-full bg-[#575B91] font-bold text-white py-2 rounded transition duration-200 hover:bg-[#46497a]"
           >
             {t.submit}
           </button>

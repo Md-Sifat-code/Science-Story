@@ -31,7 +31,7 @@ const Login = () => {
       }}
     >
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm bg-opacity-95">
-        <h2 className="text-2xl font-bold text-red-600 text-center mb-6">
+        <h2 className="text-2xl font-bold text-[#575B91] text-center mb-6">
           {t.title}
         </h2>
 
@@ -41,7 +41,7 @@ const Login = () => {
             <label htmlFor="username" className="block text-black mb-1">
               {language === "bn" ? "ইউজারনেম" : "Username"}
             </label>
-            <div className="flex items-center border border-red-600 rounded px-3 py-2 focus-within:ring-2 focus-within:ring-red-600">
+            <div className="flex items-center border border-[#575B91] rounded px-3 py-2 focus-within:ring-2 focus-within:ring-[#575B91]">
               <FaUser className="text-black mr-2" />
               <input
                 type="text"
@@ -59,7 +59,7 @@ const Login = () => {
             <label htmlFor="password" className="block text-black mb-1">
               {language === "bn" ? "পাসওয়ার্ড" : "Password"}
             </label>
-            <div className="flex items-center border border-red-600 rounded px-3 py-2 focus-within:ring-2 focus-within:ring-red-600">
+            <div className="flex items-center border border-[#575B91] rounded px-3 py-2 focus-within:ring-2 focus-within:ring-red-600">
               <FaLock className="text-black mr-2" />
               <input
                 type="password"
@@ -74,7 +74,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded transition duration-200"
+            className="w-full bg-[#575B91] hover:bg-[#575B91] text-white font-semibold py-2 rounded transition duration-200"
           >
             {t.submitButton}
           </button>
@@ -84,7 +84,7 @@ const Login = () => {
           {language === "bn"
             ? "আপনার অ্যাকাউন্ট নেই?"
             : "Don't have an account?"}{" "}
-          <Link to="/auth/signup" className="text-red-600 hover:underline">
+          <Link to="/auth/signup" className="text-[#575B91] hover:underline">
             {language === "bn" ? "সাইন আপ করুন" : "Sign Up"}
           </Link>
         </h1>

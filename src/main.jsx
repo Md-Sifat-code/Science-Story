@@ -8,6 +8,7 @@ import Signin from "./Auth/Components_auth/Signin";
 import { LanguageProvider } from "./LanguageContext";
 import Main_Layout from "./Layout/Main_Layout";
 import Home from "./Pages/Home";
+import LandingAuth from "./Auth/Components_auth/LandingAuth";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
     path: "/auth",
     element: <Auth_layout />,
     children: [
+      {
+        path : "/auth",
+        element : <LandingAuth/>
+      },
       {
         path: "/auth/login",
         element: <Login />,

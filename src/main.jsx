@@ -11,6 +11,8 @@ import Home from "./Pages/Home";
 import LandingAuth from "./Auth/Components_auth/LandingAuth";
 import Verification from "./Auth/Components_auth/Verification";
 import Learn from "./Pages/Learn";
+import Topic_Layout from "./Layout/Topic_Layout";
+import Topic1 from "./Select/Topic1";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +51,16 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/topics",
+    element: <Topic_Layout/>,
+    children : [
+      {
+        path : "/topics/physics",
+        element : <Topic1/>
+      }
+    ]
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

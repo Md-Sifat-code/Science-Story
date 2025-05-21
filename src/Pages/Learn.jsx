@@ -50,7 +50,7 @@ const Learn = () => {
       </div>
 
       <div className="w-full max-w-4xl bg-white border border-[#575B91] rounded-xl shadow-xl p-6 z-10">
-        <h2 className="text-2xl font-bold text-[#575B91] mb-4">BigganAdda Learn Console</h2>
+        <h2 className="text-2xl font-bold text-[#575B91] mb-4  flex flex-row items-center sour gap-2 uppercase"><span className='sour uppercase flex flex-row items-center'><img className='w-[50px]' src="/logo.png" alt="" />BigganAdda</span> Learn Console</h2>
 
         {/* Output Display */}
         <div className="mockup-code bg-[#f0f1fa] text-[#2d2e4c] h-80 overflow-y-auto mb-4 rounded-md">

@@ -64,7 +64,7 @@ const Login = () => {
         localStorage.setItem("email", data.email);
 
         // Redirect the user after login
-        navigate("/"); // Change this to your desired route after successful login
+        navigate("/home"); // Change this to your desired route after successful login
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Failed to log in.");
@@ -142,7 +142,7 @@ const Login = () => {
           {language === "bn"
             ? "আপনার অ্যাকাউন্ট নেই?"
             : "Don't have an account?"}{" "}
-          <Link to="/auth/signup" className="text-[#575B91] hover:underline">
+          <Link to="/signup" className="text-[#575B91] hover:underline">
             {language === "bn" ? "সাইন আপ করুন" : "Sign Up"}
           </Link>
         </h1>

@@ -13,33 +13,33 @@ import Verification from "./Auth/Components_auth/Verification";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/home",
     element: <Main_Layout />,
     children: [
       {
-        path: "/",
+        path: "/home",
         element: <Home />,
       },
     ],
   },
   {
-    path: "/auth",
+    path: "/",
     element: <Auth_layout />,
     children: [
       {
-        path: "/auth",
+        path: "/",
         element: <LandingAuth />,
       },
       {
-        path: "/auth/login",
+        path: "/login",
         element: <Login />,
       },
       {
-        path: "/auth/signup",
+        path: "/signup",
         element: <Signin />,
       },
       {
-        path: "/auth/verification",
+        path: "/verification",
         element: <Verification />,
       },
     ],

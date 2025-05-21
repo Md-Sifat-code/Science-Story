@@ -32,13 +32,13 @@ function LandingAuth() {
         <h1 className="text-3xl font-bold">{t.title}</h1>
         <div className="space-x-4">
           <Link
-            to={"/auth/login"}
+            to={"/login"}
             className="bg-white text-[#575B91] font-semibold px-6 py-2 rounded hover:bg-gray-100 transition"
           >
             {t.login}
           </Link>
           <Link
-            to={"/auth/signup"}
+            to={"/signup"}
             className="bg-white text-[#575B91] font-semibold px-6 py-2 rounded hover:bg-gray-100 transition"
           >
             {t.signup}

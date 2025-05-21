@@ -91,7 +91,7 @@ const Signin = () => {
         });
 
         // ✅ Redirect after successful signup
-        navigate("/auth/verification", { state: { email: formData.email } });
+        navigate("/verification", { state: { email: formData.email } });
       } else {
         alert(data.message || "Something went wrong.");
       }
@@ -202,7 +202,7 @@ const Signin = () => {
 
         <h1 className="mt-6 text-black font-medium text-center">
           {t.loginRedirect}{" "}
-          <Link to="/auth/login" className="text-[#575B91] hover:underline">
+          <Link to="/login" className="text-[#575B91] hover:underline">
             {t.loginLink}
           </Link>
         </h1>

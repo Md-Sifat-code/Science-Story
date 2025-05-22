@@ -19,6 +19,7 @@ import Blogs from "./Pages/Blogs";
 import AboutUs from "./Pages/AboutUs";
 import Challanges from "./Pages/Challanges";
 import { UserProvider } from "./context/UserContext";
+import ProgrammingChallengesPage from "./Pages/ProgrammingChallengesPage";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         path: "/home/challange",
         element: <Challanges />,
       },
+      { // NEW: Route for the specific programming challenges page
+        path: "/home/challenge/programming", // Adjusted path to be nested under /home/challange
+        element: <ProgrammingChallengesPage />,
+      }
     ],
   },
   {

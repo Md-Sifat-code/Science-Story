@@ -9,7 +9,7 @@ function Challanges() {
     { id: 3, name: "Space Missions", icon: <GiRocket />, link: "/challenges/space" },
     { id: 4, name: "Brain Teasers", icon: <GiBrain />, link: "/challenges/brain" },
     { id: 5, name: "Chemistry Experiments", icon: <GiChemicalDrop />, link: "/challenges/chemistry" },
-    { id: 6, name: "Programming Exercises", icon: <GiProcessor />, link: "/challenges/programming" }
+    { id: 6, name: "Programming Exercises", icon: <GiProcessor />, link: "/home/challenge/programming" }
   ];
 
   return (

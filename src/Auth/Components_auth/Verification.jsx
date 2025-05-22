@@ -56,7 +56,7 @@ const Verification = () => {
       }
 
       alert(textResponse);
-      navigate("/auth/login"); // or navigate to dashboard, etc.
+      navigate("/login"); // or navigate to dashboard, etc.
     } catch (err) {
       setError(err.message);
     } finally {

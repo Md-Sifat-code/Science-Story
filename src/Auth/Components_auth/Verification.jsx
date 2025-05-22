@@ -43,7 +43,7 @@ const Verification = () => {
 
     try {
       const response = await fetch(
-        `${API_BASE_URL}/User/validate?email=${email}&otp=${otpCode}`,
+        `https://biggangolpo.onrender.com/User/validate?email=${email}&otp=${otpCode}`,
         {
           method: "POST",
         }

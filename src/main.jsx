@@ -24,9 +24,9 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path : "/home/learn",
-        element : <Learn/>
-      }
+        path: "/home/learn",
+        element: <Learn />,
+      },
     ],
   },
   {
@@ -53,14 +53,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/topics",
-    element: <Topic_Layout/>,
-    children : [
+    element: <Topic_Layout />,
+    children: [
       {
-        path : "/topics/physics",
-        element : <Topic1/>
-      }
-    ]
-  }
+        path: "/topics/:selectedTopic",
+        element: <Topic1 />,
+      },
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

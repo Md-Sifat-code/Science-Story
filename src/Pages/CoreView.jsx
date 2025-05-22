@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { GiAtom } from "react-icons/gi";
 import { FiSend } from "react-icons/fi";
+import { BsChatDots, BsListUl } from "react-icons/bs";
 
 function CoreView() {
   const { selectedTopic } = useParams();
@@ -9,8 +10,11 @@ function CoreView() {
   const [selectedSub, setSelectedSub] = useState(null);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const chatEndRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const chatEndRef = useRef(null);
+
+  const [showSubModal, setShowSubModal] = useState(false);
+  const [showChatModal, setShowChatModal] = useState(false);
 
   useEffect(() => {
     const fetchSubtopics = async () => {
@@ -32,13 +36,11 @@ function CoreView() {
     fetchSubtopics();
   }, [selectedTopic]);
 
-  // Load saved messages from localStorage
   useEffect(() => {
     const stored = localStorage.getItem(`chat_${selectedTopic}`);
     if (stored) setMessages(JSON.parse(stored));
   }, [selectedTopic]);
 
-  // Scroll to latest message
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -52,7 +54,6 @@ function CoreView() {
     setInput("");
     setLoading(true);
 
-    // Show loading placeholder
     const thinkingMessage = { sender: "ai", text: "🤖 AI is thinking..." };
     setMessages((prev) => [...prev, thinkingMessage]);
 
@@ -87,35 +88,17 @@ function CoreView() {
     }
   };
 
+  const handleOutsideModalClick = (e, modalSetter) => {
+    if (e.target.classList.contains("modal")) {
+      modalSetter(false);
+    }
+  };
+
   return (
-    <section className="h-screen flex flex-row bg-[#f8f9fd]">
+    <section className="h-screen flex flex-col lg:flex-row bg-[#f8f9fd]">
       {/* Sidebar */}
-      <div className="w-[300px] bg-white border-r border-gray-200 p-4 shadow-md overflow-y-auto">
-        <div className="p-4 text-sm text-gray-600">
-          <Link to={"/home/learn"} className="text-[#575B91] font-semibold">
-            Learning
-          </Link>{" "}
-          / <span>{selectedTopic}</span>
-        </div>
-        <h2 className="text-xl font-bold text-[#575B91] mb-4 uppercase">
-          {selectedTopic}
-        </h2>
-        <div className="space-y-3">
-          {subtopics.map((sub, idx) => (
-            <div
-              key={idx}
-              onClick={() => setSelectedSub(sub)}
-              className={`cursor-pointer p-3 rounded-lg border flex items-center gap-2 shadow-sm transition ${
-                selectedSub?.sl === sub.sl
-                  ? "bg-[#575B91] text-white"
-                  : "bg-white text-[#2d2e4c]"
-              }`}
-            >
-              <GiAtom />
-              <span className="text-sm">{sub.title}</span>
-            </div>
-          ))}
-        </div>
+      <div className="hidden lg:block w-[300px] bg-white border-r border-gray-200 p-4 shadow-md overflow-y-auto">
+        <Sidebar />
       </div>
 
       {/* Main Content */}
@@ -149,15 +132,165 @@ function CoreView() {
         </div>
       </div>
 
-      {/* AI Chat Section */}
-      <div className="w-[400px] border-l bg-white flex flex-col">
+      {/* Chat Section (Desktop only) */}
+      <div className="hidden lg:flex w-[400px] border-l bg-white flex-col">
+        <ChatBox />
+      </div>
+
+      {/* Bottom Nav for sm+md */}
+      <div className="fixed lg:hidden bottom-0 left-0 right-0 bg-white border-t shadow-md flex justify-around py-2 z-50">
+        <button
+          onClick={() => setShowSubModal(true)}
+          className="flex flex-col items-center text-[#575B91]"
+        >
+          <BsListUl size={20} />
+          <span className="text-xs">Topics</span>
+        </button>
+        <button
+          onClick={() => setShowChatModal(true)}
+          className="flex flex-col items-center text-[#575B91]"
+        >
+          <BsChatDots size={20} />
+          <span className="text-xs">Chat</span>
+        </button>
+      </div>
+
+      {/* Modal: Topics */}
+      {showSubModal && (
+        <dialog
+          open
+          className="modal modal-bottom sm:modal-middle"
+          onClick={(e) => handleOutsideModalClick(e, setShowSubModal)}
+        >
+          <form method="dialog" className="modal-box bg-white p-4">
+            <h3 className="font-bold text-lg mb-4 text-[#575B91]">
+              {selectedTopic}
+            </h3>
+            <div className="space-y-3">
+              {subtopics.map((sub, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => {
+                    setSelectedSub(sub);
+                    setShowSubModal(false);
+                  }}
+                  className={`cursor-pointer p-3 rounded-lg border flex items-center gap-2 shadow-sm transition ${
+                    selectedSub?.sl === sub.sl
+                      ? "bg-[#575B91] text-white"
+                      : "bg-white text-[#2d2e4c]"
+                  }`}
+                >
+                  <GiAtom />
+                  <span className="text-sm">{sub.title}</span>
+                </div>
+              ))}
+            </div>
+            <div className="modal-action">
+              <button className="btn" onClick={() => setShowSubModal(false)}>
+                Close
+              </button>
+            </div>
+          </form>
+        </dialog>
+      )}
+
+      {/* Modal: Chat */}
+      {showChatModal && (
+        <dialog
+          open
+          className="modal modal-bottom sm:modal-middle"
+          onClick={(e) => handleOutsideModalClick(e, setShowChatModal)}
+        >
+          <form
+            method="dialog"
+            className="modal-box bg-white p-0 flex flex-col h-[80vh]"
+          >
+            <div className="p-4 border-b">
+              <h4 className="text-lg font-semibold">💬 Ask AI</h4>
+              <p className="text-sm text-gray-500">
+                Chat with our learning assistant
+              </p>
+            </div>
+            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+              {messages.map((msg, idx) => (
+                <div
+                  key={idx}
+                  className={`p-3 rounded-md max-w-[85%] text-sm ${
+                    msg.sender === "user"
+                      ? "bg-[#575B91] text-white self-end ml-auto"
+                      : "bg-gray-100 text-gray-800"
+                  }`}
+                >
+                  {msg.text}
+                </div>
+              ))}
+              <div ref={chatEndRef}></div>
+            </div>
+            <div className="p-4 border-t">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                  placeholder="Type your message..."
+                  className="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#575B91]"
+                />
+                <button
+                  onClick={handleSend}
+                  className="bg-[#575B91] text-white px-4 py-2 rounded-md hover:bg-[#474b7a] transition"
+                >
+                  <FiSend />
+                </button>
+              </div>
+            </div>
+          </form>
+        </dialog>
+      )}
+    </section>
+  );
+
+  function Sidebar() {
+    return (
+      <>
+        <div className="p-4 text-sm text-gray-600">
+          <Link to={"/home/learn"} className="text-[#575B91] font-semibold">
+            Learning
+          </Link>{" "}
+          / <span>{selectedTopic}</span>
+        </div>
+        <h2 className="text-xl font-bold text-[#575B91] mb-4 uppercase">
+          {selectedTopic}
+        </h2>
+        <div className="space-y-3">
+          {subtopics.map((sub, idx) => (
+            <div
+              key={idx}
+              onClick={() => setSelectedSub(sub)}
+              className={`cursor-pointer p-3 rounded-lg border flex items-center gap-2 shadow-sm transition ${
+                selectedSub?.sl === sub.sl
+                  ? "bg-[#575B91] text-white"
+                  : "bg-white text-[#2d2e4c]"
+              }`}
+            >
+              <GiAtom />
+              <span className="text-sm">{sub.title}</span>
+            </div>
+          ))}
+        </div>
+      </>
+    );
+  }
+
+  function ChatBox() {
+    return (
+      <>
         <div className="p-4 border-b">
           <h4 className="text-lg font-semibold">💬 Ask AI</h4>
           <p className="text-sm text-gray-500">
             Chat with our learning assistant
           </p>
         </div>
-
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
           {messages.map((msg, idx) => (
             <div
@@ -173,7 +306,6 @@ function CoreView() {
           ))}
           <div ref={chatEndRef}></div>
         </div>
-
         <div className="p-4 border-t">
           <div className="flex gap-2">
             <input
@@ -192,10 +324,9 @@ function CoreView() {
             </button>
           </div>
         </div>
-      </div>
-    </section>
-  );
+      </>
+    );
+  }
 }
 
 export default CoreView;
-//okay

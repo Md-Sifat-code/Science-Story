@@ -20,6 +20,7 @@ import AboutUs from "./Pages/AboutUs";
 import Challanges from "./Pages/Challanges";
 import { UserProvider } from "./context/UserContext";
 import ProgrammingChallengesPage from "./Pages/ProgrammingChallengesPage";
+import BasicSyntaxQuiz from "./Challenges/BasicSyntaxQuiz";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +50,11 @@ const router = createBrowserRouter([
       { // NEW: Route for the specific programming challenges page
         path: "/home/challenge/programming", // Adjusted path to be nested under /home/challange
         element: <ProgrammingChallengesPage />,
-      }
+      },
+      { // NEW: Route for the Basic Syntax Quiz
+        path: "/home/challange/programming/basic-syntax-quiz",
+        element: <BasicSyntaxQuiz />,
+      },
     ],
   },
   {

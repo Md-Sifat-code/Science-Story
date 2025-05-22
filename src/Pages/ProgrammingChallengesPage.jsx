@@ -1,5 +1,6 @@
 // src/Pages/ProgrammingChallengesPage.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Re_useComponents/Navbar'; // Adjust path if necessary
 
 const ProgrammingChallengesPage = () => {
@@ -27,9 +28,12 @@ const ProgrammingChallengesPage = () => {
             <div className="bg-white p-6 rounded-xl shadow-md border border-[#575B91]">
               <h2 className="text-xl font-semibold text-[#2d2e4c] mb-2">Basic Syntax</h2>
               <p className="text-gray-600 mb-4">Learn the fundamentals of JavaScript syntax.</p>
-              <button className="bg-[#575B91] text-white px-4 py-2 rounded-lg hover:bg-[#454A7A] transition">
+              <Link
+                to="/home/challange/programming/basic-syntax-quiz" // NEW: Link to the quiz page
+                className="inline-block bg-[#575B91] text-white px-4 py-2 rounded-lg hover:bg-[#454A7A] transition"
+              >
                 Start Challenge
-              </button>
+              </Link>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-md border border-[#575B91]">

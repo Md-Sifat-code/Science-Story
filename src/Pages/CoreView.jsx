@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { GiAtom } from "react-icons/gi";
 import { FiSend } from "react-icons/fi";
@@ -9,6 +9,8 @@ function CoreView() {
   const [selectedSub, setSelectedSub] = useState(null);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const chatEndRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchSubtopics = async () => {
@@ -21,7 +23,7 @@ function CoreView() {
             item.topic.toLowerCase() === selectedTopic.toLowerCase()
         );
         setSubtopics(filtered);
-        if (filtered.length > 0) setSelectedSub(filtered[0]); // auto-select first subtopic
+        if (filtered.length > 0) setSelectedSub(filtered[0]);
       } catch (err) {
         console.error("Failed to load subtopics", err);
       }
@@ -30,10 +32,58 @@ function CoreView() {
     fetchSubtopics();
   }, [selectedTopic]);
 
-  const handleSend = () => {
-    if (input.trim()) {
-      setMessages([...messages, { sender: "user", text: input.trim() }]);
-      setInput("");
+  // Load saved messages from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem(`chat_${selectedTopic}`);
+    if (stored) setMessages(JSON.parse(stored));
+  }, [selectedTopic]);
+
+  // Scroll to latest message
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const handleSend = async () => {
+    const userMsg = input.trim();
+    if (!userMsg) return;
+
+    const newMessages = [...messages, { sender: "user", text: userMsg }];
+    setMessages(newMessages);
+    setInput("");
+    setLoading(true);
+
+    // Show loading placeholder
+    const thinkingMessage = { sender: "ai", text: "🤖 AI is thinking..." };
+    setMessages((prev) => [...prev, thinkingMessage]);
+
+    try {
+      const res = await fetch(
+        `https://biggangolpo.onrender.com/ai/interest/question/${encodeURIComponent(
+          userMsg
+        )}`
+      );
+      const aiText = await res.text();
+
+      const updatedMessages = [
+        ...newMessages,
+        { sender: "ai", text: aiText.trim() || "No response received." },
+      ];
+      setMessages(updatedMessages);
+      localStorage.setItem(
+        `chat_${selectedTopic}`,
+        JSON.stringify(updatedMessages)
+      );
+    } catch (error) {
+      console.error("AI response error:", error);
+      const errorMsg = {
+        sender: "ai",
+        text: "⚠️ Failed to get a response from AI. Please try again.",
+      };
+      const updated = [...newMessages, errorMsg];
+      setMessages(updated);
+      localStorage.setItem(`chat_${selectedTopic}`, JSON.stringify(updated));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,7 +97,6 @@ function CoreView() {
           </Link>{" "}
           / <span>{selectedTopic}</span>
         </div>
-
         <h2 className="text-xl font-bold text-[#575B91] mb-4 uppercase">
           {selectedTopic}
         </h2>
@@ -108,11 +157,12 @@ function CoreView() {
             Chat with our learning assistant
           </p>
         </div>
+
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
           {messages.map((msg, idx) => (
             <div
               key={idx}
-              className={`p-2 rounded-md max-w-[85%] text-sm ${
+              className={`p-3 rounded-md max-w-[85%] text-sm ${
                 msg.sender === "user"
                   ? "bg-[#575B91] text-white self-end ml-auto"
                   : "bg-gray-100 text-gray-800"
@@ -121,7 +171,9 @@ function CoreView() {
               {msg.text}
             </div>
           ))}
+          <div ref={chatEndRef}></div>
         </div>
+
         <div className="p-4 border-t">
           <div className="flex gap-2">
             <input
@@ -146,3 +198,4 @@ function CoreView() {
 }
 
 export default CoreView;
+//okay

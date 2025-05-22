@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Signin = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -61,6 +61,8 @@ const Signin = () => {
       return;
     }
 
+    setLoading(true); // 👈 Start loading
+
     try {
       const form = new FormData();
       form.append("username", formData.username);
@@ -90,7 +92,6 @@ const Signin = () => {
           confirmPassword: "",
         });
 
-        // ✅ Redirect after successful signup
         navigate("/verification", { state: { email: formData.email } });
       } else {
         alert(data.message || "Something went wrong.");
@@ -98,6 +99,8 @@ const Signin = () => {
     } catch (error) {
       console.error("Signup error:", error);
       alert("Server error. Please try again later.");
+    } finally {
+      setLoading(false); // 👈 End loading
     }
   };
 
@@ -194,9 +197,18 @@ const Signin = () => {
 
           <button
             type="submit"
-            className="w-full bg-[#575B91] font-bold text-white py-2 rounded transition duration-200 hover:bg-[#46497a]"
+            disabled={loading}
+            className={`w-full font-bold py-2 rounded transition duration-200 ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-[#575B91] text-white hover:bg-[#46497a]"
+            }`}
           >
-            {t.submit}
+            {loading
+              ? language === "bn"
+                ? "লোড হচ্ছে..."
+                : "Loading..."
+              : t.submit}
           </button>
         </form>
 

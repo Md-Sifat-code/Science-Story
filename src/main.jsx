@@ -13,6 +13,8 @@ import Verification from "./Auth/Components_auth/Verification";
 import Learn from "./Pages/Learn";
 import Topic_Layout from "./Layout/Topic_Layout";
 import Topic1 from "./Select/Topic1";
+import Core_Layout from "./Layout/Core_Layout";
+import CoreView from "./Pages/CoreView";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +60,16 @@ const router = createBrowserRouter([
       {
         path: "/topics/:selectedTopic",
         element: <Topic1 />,
+      },
+    ],
+  },
+  {
+    path: "/core",
+    element: <Core_Layout />,
+    children: [
+      {
+        path: "/core/:selectedTopic",
+        element: <CoreView />,
       },
     ],
   },

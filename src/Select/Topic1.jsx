@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Re_useComponents/Navbar";
 import { GiAtom } from "react-icons/gi";
-
+import { useNavigate } from "react-router-dom";
 const Topic1 = () => {
   const { selectedTopic } = useParams();
   const [topicData, setTopicData] = useState(null);
   const [subtopics, setSubtopics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       console.log("🔍 Fetching topics from API...");
@@ -78,9 +78,12 @@ const Topic1 = () => {
           <div className="absolute rounded-2xl inset-0 bg-black opacity-50"></div>
           <h1 className="absolute inset-0 flex flex-col gap-4 items-center justify-center text-white text-3xl md:text-5xl font-bold uppercase">
             {topicData.name}
-            <p className="px-6 py-2 bg-[#575B91] text-sm rounded-xl text-white font-bold">
+            <button
+              onClick={() => navigate(`/core/${selectedTopic}`)}
+              className="px-6 py-2 bg-[#575B91] text-sm rounded-xl text-white font-bold"
+            >
               Enroll Now
-            </p>
+            </button>
           </h1>
         </div>
 

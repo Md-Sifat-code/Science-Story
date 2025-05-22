@@ -1,3 +1,22 @@
+// main.jsx (or index.jsx) — put this BEFORE all other imports
+
+// Polyfill for `global` and `process` for sockjs-client and related libs
+if (typeof global === "undefined") {
+  window.global = window;
+}
+
+if (typeof process === "undefined") {
+  window.process = {
+    env: { NODE_ENV: "development" },
+  };
+}
+
+// Buffer polyfill for some libs that need it
+import { Buffer } from "buffer";
+if (!window.Buffer) {
+  window.Buffer = Buffer;
+}
+
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -22,43 +41,34 @@ import { UserProvider } from "./context/UserContext";
 import ProgrammingChallengesPage from "./Pages/ProgrammingChallengesPage";
 import BasicSyntaxQuiz from "./Challenges/BasicSyntaxQuiz";
 import Dashboard from "./Pages/Dashboard";
+import Chats from "./Pages/Chats";
+import Messege_Layout from "./Layout/Messege_Layout";
+import Messages from "./components/Fixed_components/Messeges";
+import { WebSocketProvider } from "./context/WebSocketContext";
 
 const router = createBrowserRouter([
   {
     path: "/home",
     element: <Main_Layout />,
     children: [
+      { path: "/home", element: <Home /> },
+      { path: "/home/learn", element: <Learn /> },
+      { path: "/home/blog", element: <Blogs /> },
+      { path: "/home/about", element: <AboutUs /> },
+      { path: "/home/challange", element: <Challanges /> },
       {
-        path: "/home",
-        element: <Home />,
-      },
-      {
-        path: "/home/learn",
-        element: <Learn />,
-      },
-      {
-        path: "/home/blog",
-        element: <Blogs />,
-      },
-      {
-        path: "/home/about",
-        element: <AboutUs />,
-      },
-      {
-        path: "/home/challange",
-        element: <Challanges />,
-      },
-      { // NEW: Route for the specific programming challenges page
-        path: "/home/challenge/programming", // Adjusted path to be nested under /home/challange
+        path: "/home/challenge/programming",
         element: <ProgrammingChallengesPage />,
       },
-      { // NEW: Route for the Basic Syntax Quiz
+      {
         path: "/home/challange/programming/basic-syntax-quiz",
         element: <BasicSyntaxQuiz />,
       },
+      { path: "/home/dashboard", element: <Dashboard /> },
       {
-        path: "/home/dashboard",
-        element: <Dashboard/>,
+        path: "/home/chat",
+        element: <Messege_Layout />,
+        children: [{ path: "/home/chat", element: <Messages /> }],
       },
     ],
   },
@@ -66,43 +76,21 @@ const router = createBrowserRouter([
     path: "/",
     element: <Auth_layout />,
     children: [
-      {
-        path: "/",
-        element: <LandingAuth />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/signup",
-        element: <Signin />,
-      },
-      {
-        path: "/verification",
-        element: <Verification />,
-      },
+      { path: "/", element: <LandingAuth /> },
+      { path: "/login", element: <Login /> },
+      { path: "/signup", element: <Signin /> },
+      { path: "/verification", element: <Verification /> },
     ],
   },
   {
     path: "/topics",
     element: <Topic_Layout />,
-    children: [
-      {
-        path: "/topics/:selectedTopic",
-        element: <Topic1 />,
-      },
-    ],
+    children: [{ path: "/topics/:selectedTopic", element: <Topic1 /> }],
   },
   {
     path: "/core",
     element: <Core_Layout />,
-    children: [
-      {
-        path: "/core/:selectedTopic",
-        element: <CoreView />,
-      },
-    ],
+    children: [{ path: "/core/:selectedTopic", element: <CoreView /> }],
   },
 ]);
 
@@ -110,7 +98,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <LanguageProvider>
       <UserProvider>
-        <RouterProvider router={router} />
+        <WebSocketProvider>
+          <RouterProvider router={router} />
+        </WebSocketProvider>
       </UserProvider>
     </LanguageProvider>
   </React.StrictMode>

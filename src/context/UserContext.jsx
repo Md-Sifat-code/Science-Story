@@ -1,21 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-// Create Context
 const UserContext = createContext();
 
-// Custom hook for easy access
 export const useUser = () => useContext(UserContext);
 
-// Provider component
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // holds full user object
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const storedUsername = localStorage.getItem("username");
-        console.log("Stored username:", storedUsername);
         if (!storedUsername) {
           setLoading(false);
           return;
@@ -25,9 +21,7 @@ export const UserProvider = ({ children }) => {
           `https://biggangolpo.onrender.com/User/search/${storedUsername}`
         );
         const data = await response.json();
-        console.log("Fetched user data:", data);
 
-        // ✅ FIX: Use the first object in the array
         if (Array.isArray(data) && data.length > 0) {
           setUser(data[0]);
         } else {

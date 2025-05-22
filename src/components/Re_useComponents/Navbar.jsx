@@ -6,11 +6,13 @@ import {
   FaCalendarAlt,
   FaTrophy,
   FaInfoCircle,
+  FaComments,  // added chat icon
 } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -60,11 +62,24 @@ function Navbar() {
           </NavLink>
         </div>
 
-        {/* User Icon & Dropdown */}
-        <div className="relative">
+        {/* User Icon, Chat Icon & Dropdown */}
+        <div className="relative flex items-center space-x-4">
+          {/* Chat Icon */}
+          <button
+            onClick={() => navigate("/home/chat")}
+            className="text-gray-600 text-2xl hover:text-[#575B91] focus:outline-none"
+            aria-label="Chat"
+            title="Chat"
+          >
+            <FaComments />
+          </button>
+
+          {/* User Icon with Dropdown */}
           <button
             onClick={toggleDropdown}
-            className="text-gray-600 text-2xl focus:outline-none"
+            className="text-gray-600 text-2xl focus:outline-none hover:text-[#575B91]"
+            aria-label="User menu"
+            title="User menu"
           >
             <FaUserCircle />
           </button>

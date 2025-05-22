@@ -13,11 +13,11 @@ import {
 
 const Dashboard = () => {
   const user = {
-    name: 'John Doe',
-    email: 'johndoe@example.com',
+    name: 'Law',
+    email: 'yeamimhossainsajid@gmail.com',
     role: 'Student',
     coins: 150,
-    avatar: '/assets/user-avatar.png',
+    avatar: '/ai.png',
   };
 
   const enrolledTopics = [

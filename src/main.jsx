@@ -21,6 +21,7 @@ import Challanges from "./Pages/Challanges";
 import { UserProvider } from "./context/UserContext";
 import ProgrammingChallengesPage from "./Pages/ProgrammingChallengesPage";
 import BasicSyntaxQuiz from "./Challenges/BasicSyntaxQuiz";
+import Dashboard from "./Pages/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       { // NEW: Route for the Basic Syntax Quiz
         path: "/home/challange/programming/basic-syntax-quiz",
         element: <BasicSyntaxQuiz />,
+      },
+      {
+        path: "/home/dashboard",
+        element: <Dashboard/>,
       },
     ],
   },

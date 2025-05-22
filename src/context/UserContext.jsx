@@ -15,7 +15,7 @@ export const UserProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
         const storedUsername = localStorage.getItem("username");
-        console.log(storedUsername); // Assuming username is stored here
+        console.log("Stored username:", storedUsername);
         if (!storedUsername) {
           setLoading(false);
           return;
@@ -25,8 +25,14 @@ export const UserProvider = ({ children }) => {
           `https://biggangolpo.onrender.com/User/search/${storedUsername}`
         );
         const data = await response.json();
-        console.log(data);
-        setUser(data);
+        console.log("Fetched user data:", data);
+
+        // ✅ FIX: Use the first object in the array
+        if (Array.isArray(data) && data.length > 0) {
+          setUser(data[0]);
+        } else {
+          setUser(null);
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
         setUser(null);

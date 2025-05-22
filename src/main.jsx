@@ -15,6 +15,9 @@ import Topic_Layout from "./Layout/Topic_Layout";
 import Topic1 from "./Select/Topic1";
 import Core_Layout from "./Layout/Core_Layout";
 import CoreView from "./Pages/CoreView";
+import Blogs from "./Pages/Blogs";
+import AboutUs from "./Pages/AboutUs";
+import Challanges from "./Pages/Challanges";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +31,18 @@ const router = createBrowserRouter([
       {
         path: "/home/learn",
         element: <Learn />,
+      },
+      {
+        path: "/home/blog",
+        element: <Blogs />,
+      },
+      {
+        path: "/home/about",
+        element: <AboutUs />,
+      },
+      {
+        path: "/home/challange",
+        element: <Challanges />,
       },
     ],
   },

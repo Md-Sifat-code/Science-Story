@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
-import { FaUserCircle, FaHome, FaBook, FaCalendarAlt, FaTrophy, FaInfoCircle } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from "react";
+import {
+  FaUserCircle,
+  FaHome,
+  FaBook,
+  FaCalendarAlt,
+  FaTrophy,
+  FaInfoCircle,
+} from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -10,21 +17,23 @@ function Navbar() {
   };
 
   const handleLogout = () => {
-    console.log('Logout clicked');
+    console.log("Logout clicked");
   };
 
   const navLinkClass = ({ isActive }) =>
     isActive
-      ? 'text-[#575B91] font-semibold border-b-2 border-[#575B91]'
-      : 'text-gray-700 hover:text-[#575B91] transition';
+      ? "text-[#575B91] font-semibold border-b-2 border-[#575B91]"
+      : "text-gray-700 hover:text-[#575B91] transition";
 
   const iconClass = ({ isActive }) =>
-    `text-2xl ${isActive ? 'text-[#575B91]' : 'text-gray-500 hover:text-[#575B91]'} transition`;
+    `text-2xl ${
+      isActive ? "text-[#575B91]" : "text-gray-500 hover:text-[#575B91]"
+    } transition`;
 
   return (
     <div className="relative">
       {/* Top Navbar - Visible on md and above */}
-      <nav className="hidden md:flex absolute top-6 left-0 right-0 z-50 bg-white shadow-[#575B91] shadow-xl px-6 py-3 justify-between items-center container mx-auto rounded-2xl max-w-7xl">
+      <nav className="hidden md:flex absolute top-6 left-0 right-0 z-50 bg-white shadow-[#575B91] shadow-sm px-6 py-3 justify-between items-center container mx-auto rounded-2xl max-w-7xl">
         {/* Logo */}
         <div className="text-xl font-bold text-gray-800 sour">
           <NavLink to="/home">
@@ -34,11 +43,21 @@ function Navbar() {
 
         {/* Navigation Links */}
         <div className="flex space-x-6 font-medium">
-          <NavLink to="/home" end className={navLinkClass}>Home</NavLink>
-          <NavLink to="/home/learn" className={navLinkClass}>Learning</NavLink>
-          <NavLink to="/home/events" className={navLinkClass}>Events</NavLink>
-          <NavLink to="/home/contact" className={navLinkClass}>Compittions</NavLink>
-          <NavLink to="/home/about" className={navLinkClass}>About Us</NavLink>
+          <NavLink to="/home" end className={navLinkClass}>
+            Home
+          </NavLink>
+          <NavLink to="/home/learn" className={navLinkClass}>
+            Learning
+          </NavLink>
+          <NavLink to="/home/blog" className={navLinkClass}>
+            Blogs
+          </NavLink>
+          <NavLink to="/home/challange" className={navLinkClass}>
+            Challanges
+          </NavLink>
+          <NavLink to="/home/about" className={navLinkClass}>
+            About Us
+          </NavLink>
         </div>
 
         {/* User Icon & Dropdown */}
@@ -88,7 +107,7 @@ function Navbar() {
         <NavLink to="/home/learn" className={iconClass}>
           <FaBook />
         </NavLink>
-        <NavLink to="/home/events" className={iconClass}>
+        <NavLink to="/home/blog" className={iconClass}>
           <FaCalendarAlt />
         </NavLink>
         <NavLink to="/home/contact" className={iconClass}>

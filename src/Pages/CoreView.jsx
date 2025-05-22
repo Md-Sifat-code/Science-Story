@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { GiAtom } from "react-icons/gi";
 import { FiSend } from "react-icons/fi";
 
@@ -41,6 +41,13 @@ function CoreView() {
     <section className="h-screen flex flex-row bg-[#f8f9fd]">
       {/* Sidebar */}
       <div className="w-[300px] bg-white border-r border-gray-200 p-4 shadow-md overflow-y-auto">
+        <div className="p-4 text-sm text-gray-600">
+          <Link to={"/home/learn"} className="text-[#575B91] font-semibold">
+            Learning
+          </Link>{" "}
+          / <span>{selectedTopic}</span>
+        </div>
+
         <h2 className="text-xl font-bold text-[#575B91] mb-4 uppercase">
           {selectedTopic}
         </h2>

@@ -8,7 +8,7 @@ import {
   FaUserCircle,
   FaPaperPlane,
 } from "react-icons/fa";
-// import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 
 function Blogs() {
   const [posts, setPosts] = useState([]);

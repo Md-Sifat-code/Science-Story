@@ -18,6 +18,7 @@ import CoreView from "./Pages/CoreView";
 import Blogs from "./Pages/Blogs";
 import AboutUs from "./Pages/AboutUs";
 import Challanges from "./Pages/Challanges";
+import { UserProvider } from "./context/UserContext";
 
 const router = createBrowserRouter([
   {
@@ -93,7 +94,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <LanguageProvider>
-      <RouterProvider router={router} />
+      <UserProvider>
+        <RouterProvider router={router} />
+      </UserProvider>
     </LanguageProvider>
   </React.StrictMode>
 );

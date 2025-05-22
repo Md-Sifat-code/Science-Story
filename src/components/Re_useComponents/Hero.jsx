@@ -24,22 +24,22 @@ function Hero() {
 
       {/* Centered content */}
       <div className="text-center px-4 max-w-2xl">
-        <h1 className="text-4xl md:text-6xl font-bold text-black mb-4">
+        <h1 className="text-4xl md:text-9xl font-bold text-black mb-2">
           আপনেকে স্বাগতম{" "}
           <span className="sour uppercase text-[#575B91]">BigganAdda</span>
         </h1>
-        <p className="text-lg md:text-xl mb-6 text-gray-600">
+        <p className="text-lg md:text-2xl mb-6 md:mb-9 text-gray-600">
           Discover, learn, and grow with our amazing resources.
         </p>
         <Link
           to={"/home/learn"}
-          className="px-6 mb-6 py-3 bg-[#575B91] hover:bg-[#454A7A] text-white rounded-lg transition mb-6"
+          className="px-6 mb-6 md:mb-9 py-3 bg-[#575B91] hover:bg-[#454A7A] text-white rounded-lg transition mb-6"
         >
           শুরু করুন
         </Link>
 
         {/* Scientific Topic Icons */}
-        <div className="flex flex-wrap justify-center gap-4 text-[#575B91] text-3xl mt-6">
+        <div className="flex flex-wrap justify-center gap-4 text-[#575B91] text-4xl mt-6">
           <GiAtom title="Physics" />
           <GiChemicalDrop title="Chemistry" />
           <GiMicroscope title="Biology" />

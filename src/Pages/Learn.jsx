@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 const topics = [
   "Programming",
-  "chemistry",
-  "biology",
+  "Chemistry",
+  "Biology",
+  "Mathematics",
+  "Accounting",
   "Astronomy",
-  "geology",
-  "neuroscience",
+  "Geology",
+  "Neuroscience"
 ];
 
 const Learn = () => {

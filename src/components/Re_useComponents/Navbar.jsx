@@ -53,7 +53,7 @@ function Navbar() {
             Blogs
           </NavLink>
           <NavLink to="/home/challange" className={navLinkClass}>
-            Challanges
+            Challenges
           </NavLink>
           <NavLink to="/home/about" className={navLinkClass}>
             About Us
